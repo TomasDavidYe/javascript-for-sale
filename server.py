@@ -34,12 +34,24 @@ def get_javascript_file():
         }, indent=2)
 
 
-@app.route('/custom-endpoint')
+@app.route('/get-keywords')
 def get_keywords():
-    return json.dumps({
-        'message': 'Valuable piece of information from your endpoint.'
-    })
+    text = request.args.get('text')
+    keywords = [
+        'Adam',
+        'Eve',
+        'Eden',
+        'interest',
+        'invest'
+    ]
+    result = []
+
+    for keyword in keywords:
+        if keyword in text:
+            result.append(keyword)
+
+    return json.dumps(result)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5001)
